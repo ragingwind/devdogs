@@ -21,8 +21,11 @@
   "scripts": {
     "start": "electron .",
     "clean": "rm -rf $npm_package_build_target",
-    "build": "electron-packager . $npm_package_productName --out=$npm_package_build_target --all --prune --asar --version=$npm_package_build_verison",
-    "build darwin": "electron-packager . $npm_package_productName --out=$npm_package_build_target --platform=darwin --arch=x64 --prune --asar --version=$npm_package_build_version"
+    "packager": "electron-packager . $npm_package_productName --out=$npm_package_build_target --platform=$PLATFORM --arch=$ARCH --prune --asar --version=$npm_package_build_version",
+    "build":  "PLATFORM=all ARCH=all npm run packager",
+    "build:darwin": "PLATFORM=darwin ARCH=x64 npm run packager",
+    "build:win32": "PLATFORM=win32 ARCH=x64 npm run packager; PLATFORM=win32 ARCH=ia32 npm run packager",
+    "build:linux": "PLATFORM=linux ARCH=x64 npm run packager; PLATFORM=linux ARCH=ia32 npm run packager"
   },
   "files": [
     "index.js",
