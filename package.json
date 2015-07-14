@@ -15,11 +15,14 @@
     "node": ">=0.10.0"
   },
   "build": {
+    "version": "0.29.1",
     "target": "./build"
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . $npm_package_productName --out=./build --prune --asar --all --version=0.29.1"
+    "clean": "rm -rf $npm_package_build_target",
+    "build": "electron-packager . $npm_package_productName --out=$npm_package_build_target --all --prune --asar --version=$npm_package_build_verison",
+    "build darwin": "electron-packager . $npm_package_productName --out=$npm_package_build_target --platform=darwin --arch=x64 --prune --asar --version=$npm_package_build_version"
   },
   "files": [
     "index.js",
