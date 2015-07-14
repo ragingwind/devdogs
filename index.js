@@ -27,7 +27,7 @@ function createMainWindow () {
 }
 
 function toggleWindow() {
-	mainWindow[mainWindow.isVisible() ? 'hide' : 'show']();
+	mainWindow[mainWindow.isVisible() ? 'minimize' : 'restore']();
 }
 
 function onClosed() {
@@ -68,7 +68,7 @@ app.on('ready', function () {
 
 	// Register shortcut
 	var globalShortcut = require('global-shortcut');
-	globalShortcut.register('CommandOrControl+/', toggleWindow);
+	globalShortcut.register('CommandOrControl+?', toggleWindow);
 });
 
 app.on('will-quit', function () {
