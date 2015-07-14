@@ -24,8 +24,8 @@
     "packager": "electron-packager . $npm_package_productName --out=$npm_package_build_target --platform=$PLATFORM --arch=$ARCH --prune --asar --version=$npm_package_build_version",
     "build":  "PLATFORM=all ARCH=all npm run packager",
     "build:darwin": "PLATFORM=darwin ARCH=x64 npm run packager",
-    "build:win32": "PLATFORM=win32 ARCH=x64 npm run packager; PLATFORM=win32 ARCH=ia32 npm run packager",
-    "build:linux": "PLATFORM=linux ARCH=x64 npm run packager; PLATFORM=linux ARCH=ia32 npm run packager"
+    "build:win32": "PLATFORM=win32 ARCH=all npm run packager",
+    "build:linux": "PLATFORM=linux ARCH=all npm run packager"
   },
   "files": [
     "index.js",
