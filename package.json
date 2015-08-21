@@ -1,31 +1,27 @@
 {
-  "name": "devdocs",
-  "productName": "Devdocs",
+  "name": "bare-electron-react",
+  "productName": "Electron with React",
   "version": "0.0.0",
-  "description": "My polished app",
+  "description": "Electron with React",
   "license": "MIT",
   "main": "index.js",
-  "repository": "ragingwind/devdocs",
+  "repository": "ragingwind/bare-electron-react",
   "author": {
     "name": "ragingwind",
     "email": "ragingwind@gmail.com",
     "url": "ragingwind.me"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.12.0"
   },
-  "build": {
-    "version": "0.29.1",
-    "target": "./build"
-  },
+  "config": {},
   "scripts": {
-    "start": "electron .",
-    "clean": "rm -rf $npm_package_build_target",
-    "packager": "electron-packager . $npm_package_productName --out=$npm_package_build_target --platform=$PLATFORM --arch=$ARCH --prune --asar --version=$npm_package_build_version",
-    "build":  "PLATFORM=all ARCH=all npm run packager",
-    "build:darwin": "PLATFORM=darwin ARCH=x64 npm run packager",
-    "build:win32": "PLATFORM=win32 ARCH=all npm run packager",
-    "build:linux": "PLATFORM=linux ARCH=all npm run packager"
+    "copy": "cpy './**/*.*' '!./**/*.jsx' '!./**/*.es6' ../build --parents --cwd=app",
+    "babel": "babel app -d build",
+    "build": "mkdir -p build; npm run babel; npm run copy",
+    "app": "electron ./",
+    "clean": "rm -rf build package",
+    "package": "if [ -z $PLATFORM ]; then PLATFORM=all; fi; if [ -z $ARCH ]; then ARCH=all; fi; electron-packager . $npm_package_productName --out=./package --platform=$PLATFORM --arch=$ARCH --prune --asar --version=0.29.1"
   },
   "files": [
     "index.js",
@@ -35,11 +31,14 @@
   "keywords": [
     "electron-app"
   ],
-  "dependencies": {
-    "electron-debug": "^0.1.1"
-  },
   "devDependencies": {
-    "electron-packager": "^5.0.0",
+    "cpy": "^3.4.0",
+    "electron-packager": "5.0.0",
     "electron-prebuilt": "^0.29.1"
+  },
+  "dependencies": {
+    "babel": "^5.8.5",
+    "electron-debug": "^0.1.1",
+    "react": "^0.13.3"
   }
 }
