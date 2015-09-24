@@ -6,10 +6,21 @@ const Menu = require('menu');
 const GlobalShortcut = require('global-shortcut');
 
 // prevent window being GC'd
-let mainWindow = null;
+let win = null;
 
 function toggleWindow() {
-	mainWindow[mainWindow.isVisible() ? 'minimize' : 'restore']();
+	if (win.isVisible() && win.isFocused()) {
+		// minimize the window if it is is focused on
+		win.minimize();
+	}
+	else if (win.isVisible() && !win.isFocused()) {
+		// brint window in front of others if it is not minized,
+		// in behind of the other windows
+		win.focus();
+	} else if (win.isMinimized()) {
+		// restore window from dock
+		win.restore();
+	}
 }
 
 function registerShorcuts() {
@@ -41,22 +52,26 @@ app.on('ready', function () {
 
 	registerShorcuts();
 
-	mainWindow = new BrowserWindow({
+	win = new BrowserWindow({
 		width: 800,
 		height: 600,
 		resizable: true,
 		center: true,
-		show: false,
+		show: true,
 		'skip-taskbar': true
 	});
 
-	mainWindow.loadUrl('http://devdocs.io');
+	win.loadUrl('http://devdocs.io');
 
-	mainWindow.on('closed', function () {
+	win.on('closed', function () {
 		// deref the window
 		// for multiple windows store them in an array
-		mainWindow = null;
+		win = null;
 
 		unregisterShortcuts();
+	});
+
+	win.on('restore', function () {
+		win.focus();
 	});
 });
