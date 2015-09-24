@@ -1,36 +1,38 @@
 {
-  "name": "devdocs",
-  "productName": "Devdocs",
-  "version": "0.0.0",
+  "name": "devdogs",
+  "productName": "Devdogs",
+  "version": "0.1.0",
   "description": "Unofficial Devdocs app for Mac",
   "license": "MIT",
   "main": "index.js",
-  "repository": "ragingwind/bare-electron-react",
+  "repository": "ragingwind/electron-devdogs",
   "author": {
     "name": "ragingwind",
     "email": "ragingwind@gmail.com",
     "url": "ragingwind.me"
   },
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=4"
   },
   "config": {
-    "ignore": "--ignore='^/res$' --ignore='^/package$' --ignore='^/node_modules$' --ignores='d'"
+    "ignore": "--ignore='^/res$' --ignore='^/dist$' --ignore='^/node_modules$'",
+    "platform": "--platform=darwin --arch=x64 --prune --asar --icon=res/icon-128.icns",
+    "version": "--version=0.33.0 --app-bundle-id=me.ragingwind.devdocs --app-version=$npm_package_version"
   },
   "scripts": {
-    "copy": "cpy './**/*.*' '!./**/*.jsx' '!./**/*.es6' ../build --parents --cwd=app",
-    "babel": "babel app -d build",
-    "build": "mkdir -p build; npm run babel; npm run copy",
     "app": "electron ./",
     "clean": "rm -rf build package",
-    "package": "electron-packager . $npm_package_productName --out=./package --platform=darwin --arch=x86 --prune --asar --version=0.33.0 --icon=res/icon-128.icns --overwrite $npm_package_config_ignore"
+    "build": "electron-packager . $npm_package_productName --out=./dist --overwrite $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
+    "package": "cd dist/Devdocs-darwin-x64 && zip -ryXq9 ../Devdocs-${npm_package_version}.zip Devdocs.app"
   },
   "files": [
-    "index.js",
-    "index.html",
-    "index.css"
+    "index.js"
   ],
   "keywords": [
+    "devdogs"
+    "devdocs",
+    "devdocs.io",
+    "electron",
     "electron-app"
   ],
   "devDependencies": {

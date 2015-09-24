@@ -5,6 +5,8 @@ const BrowserWindow = require('browser-window');
 const Menu = require('menu');
 const GlobalShortcut = require('global-shortcut');
 
+require('crash-reporter').start();
+
 // prevent window being GC'd
 let win = null;
 
@@ -31,13 +33,13 @@ function unregisterShortcuts() {
 	GlobalShortcut.unregisterAll();
 }
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
 	if (process.platform !== 'darwin') {
 		app.quit();
 	}
 });
 
-app.on('ready', function () {
+app.on('ready', () => {
 	var template = [{
 		label: 'Devdocs',
     submenu: [{
@@ -63,7 +65,7 @@ app.on('ready', function () {
 
 	win.loadUrl('http://devdocs.io');
 
-	win.on('closed', function () {
+	win.on('closed' => () {
 		// deref the window
 		// for multiple windows store them in an array
 		win = null;
@@ -71,7 +73,7 @@ app.on('ready', function () {
 		unregisterShortcuts();
 	});
 
-	win.on('restore', function () {
+	win.on('restore' => () {
 		win.focus();
 	});
 });
