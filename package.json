@@ -1,7 +1,7 @@
 {
   "name": "devdogs",
   "productName": "Devdogs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unofficial Devdocs app for Mac",
   "license": "MIT",
   "main": "index.js",
