@@ -1,8 +1,8 @@
 {
-  "name": "bare-electron-react",
-  "productName": "Electron with React",
+  "name": "devdocs",
+  "productName": "Devdocs",
   "version": "0.0.0",
-  "description": "Electron with React",
+  "description": "Unofficial Devdocs app for Mac",
   "license": "MIT",
   "main": "index.js",
   "repository": "ragingwind/bare-electron-react",
@@ -14,14 +14,16 @@
   "engines": {
     "node": ">=0.12.0"
   },
-  "config": {},
+  "config": {
+    "ignore": "--ignore='^/res$' --ignore='^/package$' --ignore='^/node_modules$' --ignores='d'"
+  },
   "scripts": {
     "copy": "cpy './**/*.*' '!./**/*.jsx' '!./**/*.es6' ../build --parents --cwd=app",
     "babel": "babel app -d build",
     "build": "mkdir -p build; npm run babel; npm run copy",
     "app": "electron ./",
     "clean": "rm -rf build package",
-    "package": "if [ -z $PLATFORM ]; then PLATFORM=all; fi; if [ -z $ARCH ]; then ARCH=all; fi; electron-packager . $npm_package_productName --out=./package --platform=$PLATFORM --arch=$ARCH --prune --asar --version=0.29.1"
+    "package": "electron-packager . $npm_package_productName --out=./package --platform=darwin --arch=x86 --prune --asar --version=0.33.0 --icon=res/icon-128.icns --overwrite $npm_package_config_ignore"
   },
   "files": [
     "index.js",
@@ -32,13 +34,13 @@
     "electron-app"
   ],
   "devDependencies": {
-    "cpy": "^3.4.0",
-    "electron-packager": "5.0.0",
-    "electron-prebuilt": "^0.29.1"
+    "cpy": "^3.4.1",
+    "electron-packager": "5.1.0",
+    "electron-prebuilt": "^0.33.0"
   },
   "dependencies": {
-    "babel": "^5.8.5",
-    "electron-debug": "^0.1.1",
+    "babel": "^5.8.23",
+    "electron-debug": "^0.2.1",
     "react": "^0.13.3"
   }
 }
