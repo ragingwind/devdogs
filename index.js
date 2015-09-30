@@ -65,7 +65,7 @@ app.on('ready', () => {
 
 	win.loadUrl('http://devdocs.io');
 
-	win.on('closed' => () {
+	win.on('closed', () => {
 		// deref the window
 		// for multiple windows store them in an array
 		win = null;
@@ -73,7 +73,7 @@ app.on('ready', () => {
 		unregisterShortcuts();
 	});
 
-	win.on('restore' => () {
+	win.on('restore', () => {
 		win.focus();
 	});
 });
