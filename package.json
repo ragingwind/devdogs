@@ -2,7 +2,7 @@
   "name": "devdogs",
   "productName": "Devdogs",
   "version": "0.1.2",
-  "description": "Unofficial Devdocs app for Mac",
+  "description": "DevdoGs, Unofficial Devdocs app for Mac",
   "license": "MIT",
   "main": "index.js",
   "repository": "ragingwind/electron-devdogs",
@@ -23,7 +23,7 @@
     "app": "electron ./",
     "clean": "rm -rf build package",
     "build": "electron-packager . $npm_package_productName --out=./dist --overwrite $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
-    "package": "cd dist/Devdocs-darwin-x64 && zip -ryXq9 ../Devdocs-${npm_package_version}.zip Devdocs.app"
+    "package": "cd dist/Devdogs-darwin-x64 && zip -ryXq9 ../Devdogs-${npm_package_version}.zip Devdogs.app"
   },
   "files": [
     "index.js"
