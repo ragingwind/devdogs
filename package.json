@@ -41,8 +41,6 @@
     "electron-prebuilt": "^0.33.0"
   },
   "dependencies": {
-    "babel": "^5.8.23",
-    "electron-debug": "^0.2.1",
-    "react": "^0.13.3"
+    "electron-debug": "^0.2.1"
   }
 }
