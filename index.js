@@ -4,6 +4,7 @@ const app = require('app');
 const BrowserWindow = require('browser-window');
 const Menu = require('menu');
 const GlobalShortcut = require('global-shortcut');
+const appName = app.getName();
 
 require('crash-reporter').start();
 
@@ -34,18 +35,27 @@ function unregisterShortcuts() {
 }
 
 app.on('window-all-closed', () => {
-	if (process.platform !== 'darwin') {
-		app.quit();
-	}
+	app.quit();
 });
 
 app.on('ready', () => {
 	var template = [{
-		label: 'Devdocs',
+		label: appName,
     submenu: [{
-		  label: 'Hide Electron',
+			label: `About ${appName}`,
+			role: 'about'
+		}, {
+			type: 'separator'
+		}, {
+		  label: 'Hide',
 		  accelerator: 'Esc',
 		  selector: 'hide:'
+		}, {
+			label: 'Quit',
+			accelerator: 'Cmd+Q',
+			click() {
+				app.quit();
+			}
 		}]
 	}];
 
