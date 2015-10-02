@@ -1,12 +1,12 @@
-# electron-devdogs
+# devdogs
 
 ![out](https://cloud.githubusercontent.com/assets/124117/10069648/87a84332-62e8-11e5-926a-e3f29c8f8422.gif)
 
-> Electron app for Devdocs. It is made under for personal purpose.
+> Unofficial Devdocs with Electron. It is made under for personal purpose.
 
 ## Install
 
-Only support OS X, requires OS X 10.8 or newer. [Download](https://github.com/ragingwind/electron-devdogs/releases/latest), unzip, copy and run wherever you want
+Only support OS X, requires OS X 10.8 or newer. [Download](https://github.com/ragingwind/devdogs/releases/latest), unzip, copy and run wherever you want
 
 ## Features something different
 

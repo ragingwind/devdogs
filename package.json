@@ -5,7 +5,7 @@
   "description": "DevdoGs, Unofficial Devdocs app for Mac",
   "license": "MIT",
   "main": "index.js",
-  "repository": "ragingwind/electron-devdogs",
+  "repository": "ragingwind/devdogs",
   "author": {
     "name": "ragingwind",
     "email": "ragingwind@gmail.com",
