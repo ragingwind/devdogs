@@ -2,7 +2,7 @@
 
 ![out](https://cloud.githubusercontent.com/assets/124117/10069648/87a84332-62e8-11e5-926a-e3f29c8f8422.gif)
 
-> Unofficial Devdocs with Electron. It is made under for personal purpose.
+> Unofficial [Devdocs](http://devdocs.io/) with Electron. It is made under for personal purpose.
 
 ## Install
 
