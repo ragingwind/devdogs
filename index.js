@@ -4,6 +4,8 @@ const app = require('app');
 const BrowserWindow = require('browser-window');
 const Menu = require('menu');
 const GlobalShortcut = require('global-shortcut');
+const fs = require('fs');
+const path = require('path');
 const appName = app.getName();
 
 require('crash-reporter').start();
@@ -24,6 +26,10 @@ function toggleWindow() {
 		// restore window from dock
 		win.restore();
 	}
+}
+
+function setTheme(theme, menu) {
+	console.log(theme, menu);
 }
 
 function registerShorcuts() {
@@ -57,6 +63,14 @@ app.on('ready', () => {
 				app.quit();
 			}
 		}]
+	}, {
+		label: 'View',
+		submenu: [{
+			label: 'Change theme',
+			click() {
+				win.webContents.send('change-theme');
+			}
+		}]
 	}];
 
 	var menu = Menu.buildFromTemplate(template);
@@ -70,7 +84,10 @@ app.on('ready', () => {
 		resizable: true,
 		center: true,
 		show: true,
-		'skip-taskbar': true
+		'skip-taskbar': true,
+		'web-preferences': {
+			'preload': path.join(__dirname, 'browser.js')
+		}
 	});
 
 	win.loadUrl('http://devdocs.io');
@@ -85,5 +102,12 @@ app.on('ready', () => {
 
 	win.on('restore', () => {
 		win.focus();
+	});
+
+	const page = win.webContents;
+
+	page.on('dom-ready', () => {
+		page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'));
+		win.show();
 	});
 });

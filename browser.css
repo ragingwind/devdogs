@@ -1,0 +1,9 @@
+/* hide layout button */
+._sidebar-footer-link._sidebar-footer-layout {
+  display: none;
+}
+
+/* hide theme button */
+._sidebar-footer-link._sidebar-footer-light {
+  display: none
+}
