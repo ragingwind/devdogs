@@ -2,13 +2,16 @@
 
 const app = require('app');
 const BrowserWindow = require('browser-window');
-const Menu = require('menu');
 const GlobalShortcut = require('global-shortcut');
 const fs = require('fs');
 const path = require('path');
-const appName = app.getName();
 
 require('crash-reporter').start();
+require('electron-menu-loader')('menu');
+
+if (process.env.NODE_ENV !== 'production') {
+	require('electron-debug')();
+}
 
 // prevent window being GC'd
 let win = null;
@@ -45,37 +48,6 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-	var template = [{
-		label: appName,
-    submenu: [{
-			label: `About ${appName}`,
-			role: 'about'
-		}, {
-			type: 'separator'
-		}, {
-		  label: 'Hide',
-		  accelerator: 'Esc',
-		  selector: 'hide:'
-		}, {
-			label: 'Quit',
-			accelerator: 'Cmd+Q',
-			click() {
-				app.quit();
-			}
-		}]
-	}, {
-		label: 'View',
-		submenu: [{
-			label: 'Change theme',
-			click() {
-				win.webContents.send('change-theme');
-			}
-		}]
-	}];
-
-	var menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
-
 	registerShorcuts();
 
 	win = new BrowserWindow({
