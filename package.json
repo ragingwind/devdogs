@@ -42,6 +42,6 @@
   },
   "dependencies": {
     "electron-debug": "^0.2.1",
-    "electron-menu-loader": "0.0.2"
+    "electron-menu-loader": "0.0.3"
   }
 }

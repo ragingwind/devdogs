@@ -6,12 +6,12 @@ const GlobalShortcut = require('global-shortcut');
 const fs = require('fs');
 const path = require('path');
 
-require('crash-reporter').start();
-require('electron-menu-loader')('menu');
-
 if (process.env.NODE_ENV !== 'production') {
+	require('crash-reporter').start();
 	require('electron-debug')();
 }
+
+require('electron-menu-loader')('menu', [process.platform]);
 
 // prevent window being GC'd
 let win = null;
@@ -29,10 +29,6 @@ function toggleWindow() {
 		// restore window from dock
 		win.restore();
 	}
-}
-
-function setTheme(theme, menu) {
-	console.log(theme, menu);
 }
 
 function registerShorcuts() {
