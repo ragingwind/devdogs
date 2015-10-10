@@ -5,5 +5,10 @@
 
 /* hide theme button */
 ._sidebar-footer-link._sidebar-footer-light {
-  display: none
+  display: none;
+}
+
+/* hide nav menu */
+nav._nav {
+  display: none;
 }

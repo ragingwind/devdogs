@@ -12,14 +12,30 @@ module.exports = {
   darwin: [{
     label: appName,
     submenu: [{
-      label: `About ${appName}`,
-      role: 'about'
+      label: 'About ' + app.getName(),
+      click() {
+        sendEvent('go-about');
+      }
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Change theme',
+      click() {
+        sendEvent('change-theme');
+      }
+    }, {
+      label: 'Offline',
+      click() {
+        sendEvent('go-offline');
+      }
     }, {
       type: 'separator'
     }, {
       label: 'Hide',
       accelerator: 'Esc',
       selector: 'hide:'
+    }, {
+      type: 'separator'
     }, {
       label: 'Quit',
       accelerator: 'Cmd+Q',
@@ -28,11 +44,16 @@ module.exports = {
       }
     }]
   }, {
-    label: 'View',
+    label: 'Help',
     submenu: [{
-      label: 'Change theme',
+      label: 'News',
       click() {
-        sendEvent('change-theme');
+        sendEvent('go-news');
+      }
+    }, {
+      label: 'Tips',
+      click() {
+        sendEvent('go-tips');
       }
     }]
   }]
