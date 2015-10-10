@@ -41,5 +41,37 @@ module.exports = {
       label: 'Tips',
       event: 'tips'
     }]
+  }],
+  win32: [{
+    label: appName,
+    submenu: [{
+      label: 'About ' + app.getName(),
+      event: 'about'
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Change theme',
+      event: 'theme'
+    }, {
+      label: 'Offline',
+      event: 'offline'
+    }, {
+      type: 'separator'
+    }, {
+      label: 'Quit',
+      accelerator: 'Ctrl+Q',
+      click() {
+        app.quit();
+      }
+    }]
+  }, {
+    label: 'Help',
+    submenu: [{
+      label: 'News',
+      event: 'news'
+    }, {
+      label: 'Tips',
+      event: 'tips'
+    }]
   }]
 };
