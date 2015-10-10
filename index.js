@@ -52,7 +52,7 @@ app.on('ready', () => {
 		resizable: true,
 		center: true,
 		show: true,
-		'skip-taskbar': true,
+		'skip-taskbar': process.platform != "win32",
 		'web-preferences': {
 			'preload': path.join(__dirname, 'browser.js')
 		}
