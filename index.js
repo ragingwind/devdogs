@@ -79,3 +79,7 @@ app.on('ready', () => {
 		win.show();
 	});
 });
+
+app.on('menuitem-click', (e) => {
+  BrowserWindow.getFocusedWindow().webContents.send(e.event);
+});
