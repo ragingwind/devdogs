@@ -26,7 +26,10 @@
     "package": "cd dist/Devdogs-darwin-x64 && zip -ryXq9 ../Devdogs-${npm_package_version}.zip Devdogs.app"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "menu.js",
+    "browser.js",
+    "browser.css"
   ],
   "keywords": [
     "devdogs",

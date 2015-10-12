@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
 	require('electron-debug')();
 }
 
-require('electron-menu-loader')('menu', [process.platform]);
+require('electron-menu-loader')(path.join(__dirname, './menu'), [process.platform]);
 
 // prevent window being GC'd
 let win = null;
