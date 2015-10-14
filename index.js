@@ -5,6 +5,7 @@ const BrowserWindow = require('browser-window');
 const GlobalShortcut = require('global-shortcut');
 const fs = require('fs');
 const path = require('path');
+const shortcuts = require('electron-shortcut-loader')(path.join(__dirname, './shortcuts'));
 
 if (process.env.NODE_ENV !== 'production') {
 	require('crash-reporter').start();
@@ -31,20 +32,12 @@ function toggleWindow() {
 	}
 }
 
-function registerShorcuts() {
-	GlobalShortcut.register('CommandOrControl+?', toggleWindow);
-}
-
-function unregisterShortcuts() {
-	GlobalShortcut.unregisterAll();
-}
-
 app.on('window-all-closed', () => {
 	app.quit();
 });
 
 app.on('ready', () => {
-	registerShorcuts();
+	shortcuts.register();
 
 	win = new BrowserWindow({
 		width: 800,
@@ -64,8 +57,6 @@ app.on('ready', () => {
 		// deref the window
 		// for multiple windows store them in an array
 		win = null;
-
-		unregisterShortcuts();
 	});
 
 	win.on('restore', () => {
@@ -80,6 +71,18 @@ app.on('ready', () => {
 	});
 });
 
+app.on('will-quit', () => {
+	shortcuts.unregister();
+});
+
 app.on('menuitem-click', (e) => {
   BrowserWindow.getFocusedWindow().webContents.send(e.event);
+});
+
+app.on('shortcut-press', (e) => {
+	switch (e.event) {
+		case 'toggle':
+			toggleWindow();
+			break;
+	}
 });
