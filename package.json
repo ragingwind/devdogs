@@ -46,6 +46,6 @@
   "dependencies": {
     "electron-debug": "^0.2.1",
     "electron-menu-loader": "0.0.3",
-    "electron-shortcut-loader": "^0.1.0"
+    "electron-shortcut-loader": "^0.1.2"
   }
 }

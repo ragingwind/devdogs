@@ -5,14 +5,14 @@ const BrowserWindow = require('browser-window');
 const GlobalShortcut = require('global-shortcut');
 const fs = require('fs');
 const path = require('path');
-const shortcuts = require('electron-shortcut-loader')(path.join(__dirname, './shortcuts'));
+const shortcuts = require('electron-shortcut-loader')('./shortcuts');
 
 if (process.env.NODE_ENV !== 'production') {
 	require('crash-reporter').start();
 	require('electron-debug')();
 }
 
-require('electron-menu-loader')(path.join(__dirname, './menu'), [process.platform]);
+require('electron-menu-loader')('./menu', [process.platform]);
 
 // prevent window being GC'd
 let win = null;
