@@ -5,6 +5,7 @@ const BrowserWindow = require('browser-window');
 const fs = require('fs');
 const path = require('path');
 const shortcuts = require('electron-shortcut-loader')(path.join(__dirname, './shortcuts'));
+const togglify = require('electron-togglify-window');
 
 if (process.env.NODE_ENV !== 'production') {
 	require('crash-reporter').start();
@@ -16,21 +17,21 @@ require('electron-menu-loader')(path.join(__dirname, './menu'), [process.platfor
 // prevent window being GC'd
 let win = null;
 
-function toggleWindow() {
-	if (win.isVisible() && win.isFocused()) {
-		// minimize the window if it is is focused on
-		win.minimize();
-	}
-	else if (win.isVisible() && !win.isFocused()) {
-		// brint window in front of others if it is not minized,
-		// in behind of the other windows
-		win.focus();
-	} else if (win.isMinimized()) {
-		// restore window from dock
-		win.restore();
-	}
-}
-
+// function toggleWindow() {
+// 	if (win.isVisible() && win.isFocused()) {
+// 		// minimize the window if it is is focused on
+// 		win.minimize();
+// 	}
+// 	else if (win.isVisible() && !win.isFocused()) {
+// 		// brint window in front of others if it is not minized,
+// 		// in behind of the other windows
+// 		win.focus();
+// 	} else if (win.isMinimized()) {
+// 		// restore window from dock
+// 		win.restore();
+// 	}
+// }
+//
 app.on('window-all-closed', () => {
 	app.quit();
 });
@@ -38,7 +39,7 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
 	shortcuts.register();
 
-	win = new BrowserWindow({
+	win = togglify(new BrowserWindow({
 		width: 800,
 		height: 600,
 		resizable: true,
@@ -48,6 +49,8 @@ app.on('ready', () => {
 		'web-preferences': {
 			'preload': path.join(__dirname, 'browser.js')
 		}
+	}), {
+		animation: 'hide'
 	});
 
 	win.loadUrl('http://devdocs.io');
@@ -81,7 +84,7 @@ app.on('menuitem-click', (e) => {
 app.on('shortcut-press', (e) => {
 	switch (e.event) {
 		case 'toggle':
-			toggleWindow();
+			win.toggle();
 			break;
 	}
 });
