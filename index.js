@@ -2,7 +2,6 @@
 
 const app = require('app');
 const BrowserWindow = require('browser-window');
-const GlobalShortcut = require('global-shortcut');
 const fs = require('fs');
 const path = require('path');
 const shortcuts = require('electron-shortcut-loader')(path.join(__dirname, './shortcuts'));
