@@ -6,6 +6,9 @@ const fs = require('fs');
 const path = require('path');
 const shortcuts = require('electron-shortcut-loader')(path.join(__dirname, './shortcuts'));
 const togglify = require('electron-togglify-window');
+const Configstore = require('configstore');
+const pkg = require(path.join(__dirname, './package.json'));
+const conf = new Configstore(pkg.name, {animation: 'scale'});
 
 if (process.env.NODE_ENV !== 'production') {
 	require('crash-reporter').start();
@@ -17,21 +20,6 @@ require('electron-menu-loader')(path.join(__dirname, './menu'), [process.platfor
 // prevent window being GC'd
 let win = null;
 
-// function toggleWindow() {
-// 	if (win.isVisible() && win.isFocused()) {
-// 		// minimize the window if it is is focused on
-// 		win.minimize();
-// 	}
-// 	else if (win.isVisible() && !win.isFocused()) {
-// 		// brint window in front of others if it is not minized,
-// 		// in behind of the other windows
-// 		win.focus();
-// 	} else if (win.isMinimized()) {
-// 		// restore window from dock
-// 		win.restore();
-// 	}
-// }
-//
 app.on('window-all-closed', () => {
 	app.quit();
 });
@@ -50,7 +38,7 @@ app.on('ready', () => {
 			'preload': path.join(__dirname, 'browser.js')
 		}
 	}), {
-		animation: 'hide'
+		animation: conf.get('animation')
 	});
 
 	win.loadUrl('http://devdocs.io');
@@ -77,8 +65,15 @@ app.on('will-quit', () => {
 	shortcuts.unregister();
 });
 
-app.on('menuitem-click', (e) => {
-  BrowserWindow.getFocusedWindow().webContents.send(e.event);
+app.on('menuitem-click', (e, args) => {
+	if (e.event === 'toggle-animation') {
+		// Change animation of toggle
+		var animation = conf.get('animation') === 'hide' ? 'scale' : 'hide';
+		conf.set('animation', animation);
+		togglify.changeAnimation(win, animation);
+	} else {
+  	BrowserWindow.getFocusedWindow().webContents.send(e.event);
+	}
 });
 
 app.on('shortcut-press', (e) => {
