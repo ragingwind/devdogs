@@ -4,7 +4,7 @@ const app = require('app');
 const BrowserWindow = require('browser-window');
 const fs = require('fs');
 const path = require('path');
-const shortcuts = require('electron-shortcut-loader')('./shortcuts');
+const shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
 const Configstore = require('configstore');
 const pkg = require(path.join(__dirname, './package.json'));
@@ -25,8 +25,6 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-	shortcuts.register();
-
 	win = togglify(new BrowserWindow({
 		width: 800,
 		height: 600,
@@ -59,10 +57,13 @@ app.on('ready', () => {
 		page.insertCSS(fs.readFileSync(path.join(__dirname, 'browser.css'), 'utf8'));
 		win.show();
 	});
-});
 
-app.on('will-quit', () => {
-	shortcuts.unregister();
+	// register a shortcuts
+	shortcut.register('CommandOrControl+?', {
+		cmdOrCtrl: true
+	}, e => {
+		win.toggle();
+	});
 });
 
 app.on('menuitem-click', (e, args) => {
@@ -73,13 +74,5 @@ app.on('menuitem-click', (e, args) => {
 		togglify.changeAnimation(win, animation);
 	} else {
   	BrowserWindow.getFocusedWindow().webContents.send(e.event);
-	}
-});
-
-app.on('shortcut-press', (e) => {
-	switch (e.event) {
-		case 'toggle':
-			win.toggle();
-			break;
 	}
 });
