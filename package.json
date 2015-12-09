@@ -20,10 +20,10 @@
     "version": "--version=0.33.0 --app-bundle-id=me.ragingwind.devdocs --app-version=$npm_package_version"
   },
   "scripts": {
-    "app": "electron ./",
+    "start": "electron ./",
     "clean": "rm -rf build package",
     "build": "electron-packager . $npm_package_productName --out=./dist --overwrite $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
-    "package": "cd dist/Devdogs-darwin-x64 && zip -ryXq9 ../Devdogs-${npm_package_version}.zip Devdogs.app"
+    "package": "cd dist/${npm_package_productName}-darwin-x64 && zip -ryXq9 ../${npm_package_productName}-${npm_package_version}.zip ${npm_package_productName}.app"
   },
   "files": [
     "index.js",
