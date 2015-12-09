@@ -59,9 +59,9 @@ app.on('ready', () => {
 	});
 
 	// register a shortcuts
-	shortcut.register('CommandOrControl+?', {
+	shortcut.register('Command+?', {
 		cmdOrCtrl: true
-	}, e => {
+	}, () => {
 		win.toggle();
 	});
 });
