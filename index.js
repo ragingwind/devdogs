@@ -4,7 +4,7 @@ const app = require('app');
 const BrowserWindow = require('browser-window');
 const fs = require('fs');
 const path = require('path');
-const shortcut = require('electron-shortcut');
+const Shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
 const Configstore = require('configstore');
 const pkg = require(path.join(__dirname, './package.json'));
@@ -59,7 +59,8 @@ app.on('ready', () => {
 	});
 
 	// register a shortcuts
-	shortcut.register('Command+?', {
+	Shortcut.register('Command+?', {
+		autoRegister: false,
 		cmdOrCtrl: true
 	}, () => {
 		win.toggle();
