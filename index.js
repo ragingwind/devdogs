@@ -104,6 +104,7 @@ app.on('ready', () => {
   searchPage.on('dom-ready', () => {
     searchPage.insertCSS(fs.readFileSync(path.join(__dirname, 'search.css'), 'utf8'));
     searchPage.executeJavaScript(fs.readFileSync(path.join(__dirname, 'search.js'), 'utf8'));
+
     ipc.on('selected', function(event, href) {
       search.hide();
       if (win) {
@@ -112,6 +113,10 @@ app.on('ready', () => {
         loadWindow();
       }
       win.loadUrl(href);
+    });
+
+    ipc.on('exit', function() {
+      search.hide();
     });
   });
 
