@@ -52,10 +52,6 @@ function loadWindow(argument) {
     win = null;
   });
 
-  win.on('restore', () => {
-    win.focus();
-  });
-
   const page = win.webContents;
 
   page.on('dom-ready', () => {
@@ -115,8 +111,12 @@ app.on('ready', () => {
       win.loadUrl(href);
     });
 
-    ipc.on('exit', function() {
+    ipc.on('search-exit', function() {
       search.hide();
+    });
+
+    ipc.on('win-exit', function() {
+      win.close();
     });
   });
 
@@ -126,7 +126,11 @@ app.on('ready', () => {
     cmdOrCtrl: true
   }, () => {
     if (win) {
-      win.toggle();
+      if (!win.isMinimized()) {
+        win.minimize();
+      } else {
+        win.restore();
+      }
     } else {
       if (search.isVisible()) {
         search.hide();
@@ -139,12 +143,5 @@ app.on('ready', () => {
 });
 
 app.on('menuitem-click', (e, args) => {
-  if (e.event === 'toggle-animation') {
-    // Change animation of toggle
-    var animation = conf.get('animation') === 'hide' ? 'scale' : 'hide';
-    conf.set('animation', animation);
-    togglify.changeAnimation(win, animation);
-  } else {
-    BrowserWindow.getFocusedWindow().webContents.send(e.event);
-  }
+  BrowserWindow.getFocusedWindow().webContents.send(e.event);
 });

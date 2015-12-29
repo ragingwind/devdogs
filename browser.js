@@ -20,3 +20,9 @@ ipc.on('news', () => {
 ipc.on('tips', () => {
 	document.querySelector('nav._nav a[href="/help"]').click();
 });
+
+document.addEventListener('keyup', function(event) {
+  if (event.keyCode == 27) {
+    ipc.send('win-exit');
+  }
+});

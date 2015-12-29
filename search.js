@@ -8,6 +8,6 @@ document.getElementsByClassName('_sidebar')[0]
 
 document.addEventListener('keyup', function(event) {
   if (event.keyCode == 27) {
-    ipc.send('exit');
+    ipc.send('search-exit');
   }
 });

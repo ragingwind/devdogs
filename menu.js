@@ -15,9 +15,6 @@ module.exports = {
       label: 'Change theme',
       event: 'theme'
     }, {
-      label: 'Change toggle animation',
-      event: 'toggle-animation'
-    }, {
       label: 'Offline',
       event: 'offline'
     }, {
