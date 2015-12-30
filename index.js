@@ -74,6 +74,6 @@ app.on('menuitem-click', (e, args) => {
 		conf.set('animation', animation);
 		togglify.changeAnimation(win, animation);
 	} else {
-  	BrowserWindow.getFocusedWindow().webContents.send(e.event);
+		BrowserWindow.getFocusedWindow().webContents.send(e.event);
 	}
 });
