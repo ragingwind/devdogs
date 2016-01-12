@@ -7,6 +7,8 @@ const path = require('path');
 const Shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
 const Configstore = require('configstore');
+const clipboard = require('electron').clipboard;
+
 const pkg = require(path.join(__dirname, './package.json'));
 const conf = new Configstore(pkg.name, {animation: 'scale'});
 
@@ -64,6 +66,15 @@ app.on('ready', () => {
 		cmdOrCtrl: true
 	}, () => {
 		win.toggle();
+	});
+
+	Shortcut.register('Command+v', {
+		cmdOrCtrl: true
+	}, () => {
+		var text = clipboard.readText();
+		if (text && text.length > 0) {
+			BrowserWindow.getFocusedWindow().webContents.send('clipboard', text);
+		}
 	});
 });
 

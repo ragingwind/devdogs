@@ -20,3 +20,7 @@ ipc.on('news', () => {
 ipc.on('tips', () => {
 	document.querySelector('nav._nav a[href="/help"]').click();
 });
+
+ipc.on('clipboard', (text) => {
+	document.querySelector('input[type=search]').value = text;
+})
