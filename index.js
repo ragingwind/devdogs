@@ -1,7 +1,7 @@
 'use strict';
 
-const app = require('app');
-const BrowserWindow = require('browser-window');
+const app = require('electron').app;
+const BrowserWindow = require('electron').BrowserWindow;
 const fs = require('fs');
 const path = require('path');
 const Shortcut = require('electron-shortcut');
@@ -13,7 +13,10 @@ const pkg = require(path.join(__dirname, './package.json'));
 const conf = new Configstore(pkg.name, {animation: 'scale'});
 
 if (process.env.NODE_ENV !== 'production') {
-	require('crash-reporter').start();
+	require('crash-reporter').start({
+		companyName: pkg.author.name,
+		submitURL: pkg.repository
+	});
 	require('electron-debug')();
 }
 
@@ -41,7 +44,7 @@ app.on('ready', () => {
 		animation: conf.get('animation')
 	});
 
-	win.loadUrl('http://devdocs.io');
+	win.loadURL('http://devdocs.io');
 
 	win.on('closed', () => {
 		// deref the window
