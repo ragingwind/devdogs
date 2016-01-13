@@ -17,7 +17,7 @@
   "config": {
     "ignore": "--ignore='^/res$' --ignore='^/dist$' --ignore='^/node_modules$'",
     "platform": "--platform=darwin --arch=x64 --prune --asar --icon=res/icon-128.icns",
-    "version": "--version=0.33.0 --app-bundle-id=me.ragingwind.devdocs --app-version=$npm_package_version"
+    "version": "--version=0.36.3 --app-bundle-id=me.ragingwind.devdocs --app-version=$npm_package_version"
   },
   "scripts": {
     "start": "electron ./",
