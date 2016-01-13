@@ -21,8 +21,8 @@ ipc.on('tips', () => {
 	document.querySelector('nav._nav a[href="/help"]').click();
 });
 
-ipc.on('clipboard', (text) => {
-	document.querySelector('input[type=search]').value = text;
+ipc.on('clipboard', (event, args) => {
+	document.querySelector('input[type=search]').value = args;
 });
 
 ipc.on('copy', () => {
