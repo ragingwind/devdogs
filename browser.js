@@ -1,5 +1,5 @@
 'use strict';
-const ipc = require('ipc');
+const ipc = require('electron').ipcRenderer;
 
 ipc.on('theme', () => {
 	document.querySelector('._sidebar-footer-link._sidebar-footer-light').click();
@@ -23,4 +23,8 @@ ipc.on('tips', () => {
 
 ipc.on('clipboard', (text) => {
 	document.querySelector('input[type=search]').value = text;
-})
+});
+
+ipc.on('copy', () => {
+	ipc.send('copy', window.getSelection().toString());
+});

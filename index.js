@@ -8,6 +8,7 @@ const Shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
 const Configstore = require('configstore');
 const clipboard = require('electron').clipboard;
+const ipc = require('electron').ipcMain;
 
 const pkg = require(path.join(__dirname, './package.json'));
 const conf = new Configstore(pkg.name, {animation: 'scale'});
@@ -36,9 +37,9 @@ app.on('ready', () => {
 		resizable: true,
 		center: true,
 		show: true,
-		'skip-taskbar': true,
-		'web-preferences': {
-			'preload': path.join(__dirname, 'browser.js')
+		skipTaskbar: true,
+		webPreferences: {
+			preload: path.join(__dirname, 'browser.js')
 		}
 	}), {
 		animation: conf.get('animation')
@@ -79,6 +80,12 @@ app.on('ready', () => {
 			BrowserWindow.getFocusedWindow().webContents.send('clipboard', text);
 		}
 	});
+
+	Shortcut.register('Command+c', {
+		cmdOrCtrl: true
+	}, () => {
+		BrowserWindow.getFocusedWindow().webContents.send('copy');
+	});
 });
 
 app.on('menuitem-click', (e, args) => {
@@ -89,5 +96,11 @@ app.on('menuitem-click', (e, args) => {
 		togglify.changeAnimation(win, animation);
 	} else {
 		BrowserWindow.getFocusedWindow().webContents.send(e.event);
+	}
+});
+
+ipc.on('copy', (e, args) => {
+	if (args && args.length > 0) {
+		clipboard.writeText(args);
 	}
 });
