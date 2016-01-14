@@ -21,6 +21,7 @@
   },
   "scripts": {
     "start": "electron ./",
+    "test": "xo",
     "clean": "rm -rf build package",
     "build": "electron-packager . $npm_package_productName --out=./dist --overwrite $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
     "package": "cd dist/${npm_package_productName}-darwin-x64 && zip -ryXq9 ../${npm_package_productName}-${npm_package_version}.zip ${npm_package_productName}.app"
@@ -39,9 +40,9 @@
     "electron-app"
   ],
   "devDependencies": {
-    "cpy": "^4.0.0",
     "electron-packager": "5.2.0",
-    "electron-prebuilt": "^0.36.3"
+    "electron-prebuilt": "^0.36.3",
+    "xo": "^0.12.1"
   },
   "dependencies": {
     "configstore": "^1.4.0",
@@ -49,5 +50,12 @@
     "electron-menu-loader": "0.0.3",
     "electron-shortcut": "^0.4.1",
     "electron-togglify-window": "^0.1.0"
+  },
+  "xo": {
+    "esnext": true,
+    "envs": [
+      "node",
+      "browser"
+    ]
   }
 }
