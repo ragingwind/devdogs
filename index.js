@@ -7,8 +7,6 @@ const path = require('path');
 const Shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
 const Configstore = require('configstore');
-const clipboard = require('electron').clipboard;
-const ipc = require('electron').ipcMain;
 
 const pkg = require(path.join(__dirname, './package.json'));
 const conf = new Configstore(pkg.name, {animation: 'scale'});
@@ -71,36 +69,15 @@ app.on('ready', () => {
 	}, () => {
 		win.toggle();
 	});
-
-	Shortcut.register('Command+v', {
-		cmdOrCtrl: true
-	}, () => {
-		var text = clipboard.readText();
-		if (text && text.length > 0) {
-			BrowserWindow.getFocusedWindow().webContents.send('clipboard', text);
-		}
-	});
-
-	Shortcut.register('Command+c', {
-		cmdOrCtrl: true
-	}, () => {
-		BrowserWindow.getFocusedWindow().webContents.send('copy');
-	});
 });
 
-app.on('menuitem-click', (e, args) => {
+app.on('menuitem-click', e => {
 	if (e.event === 'toggle-animation') {
 		// Change animation of toggle
-		var animation = conf.get('animation') === 'hide' ? 'scale' : 'hide';
+		const animation = conf.get('animation') === 'hide' ? 'scale' : 'hide';
 		conf.set('animation', animation);
 		togglify.changeAnimation(win, animation);
 	} else {
 		BrowserWindow.getFocusedWindow().webContents.send(e.event);
-	}
-});
-
-ipc.on('copy', (e, args) => {
-	if (args && args.length > 0) {
-		clipboard.writeText(args);
 	}
 });

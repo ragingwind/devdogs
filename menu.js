@@ -7,7 +7,7 @@ module.exports = {
 	darwin: [{
 		label: appName,
 		submenu: [{
-			label: 'About ' + app.getName(),
+			label: `About ${appName}`,
 			event: 'about'
 		}, {
 			type: 'separator'
@@ -34,6 +34,25 @@ module.exports = {
 			click() {
 				app.quit();
 			}
+		}]
+	}, {
+		label: 'Edit',
+		submenu: [{
+			label: 'Cut',
+			accelerator: 'CmdOrCtrl+X',
+			role: 'cut'
+		}, {
+			label: 'Copy',
+			accelerator: 'CmdOrCtrl+C',
+			role: 'copy'
+		}, {
+			label: 'Paste',
+			accelerator: 'CmdOrCtrl+V',
+			role: 'paste'
+		}, {
+			label: 'Select All',
+			accelerator: 'CmdOrCtrl+A',
+			role: 'selectall'
 		}]
 	}, {
 		label: 'Help',
