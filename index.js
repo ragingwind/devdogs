@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const Shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
+const windowStateKeeper = require('electron-window-state');
 const Configstore = require('configstore');
 
 const pkg = require(path.join(__dirname, './package.json'));
@@ -29,9 +30,16 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+	let mainWindowState = windowStateKeeper({
+		defaultWidth: 800,
+		defaultHeight: 600
+	});
+
 	win = togglify(new BrowserWindow({
-		width: 800,
-		height: 600,
+		x: mainWindowState.x,
+		y: mainWindowState.y,
+		width: mainWindowState.width,
+		height: mainWindowState.height,
 		resizable: true,
 		center: true,
 		show: true,
@@ -42,6 +50,8 @@ app.on('ready', () => {
 	}), {
 		animation: conf.get('animation')
 	});
+
+	mainWindowState.manage(win);
 
 	win.loadURL('http://devdocs.io');
 
