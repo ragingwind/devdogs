@@ -17,13 +17,13 @@
   "config": {
     "ignore": "--ignore='^/res$' --ignore='^/dist$' --ignore='^/node_modules$'",
     "platform": "--platform=darwin --arch=x64 --prune --asar --icon=res/icon-128.icns",
-    "version": "--version=0.36.3 --app-bundle-id=me.ragingwind.devdocs --app-version=$npm_package_version"
+    "version": "--version=0.36.3 --app-bundle-id=me.ragingwind.devdocs"
   },
   "scripts": {
     "start": "electron ./",
     "test": "xo",
     "clean": "rm -rf build package",
-    "build": "electron-packager . $npm_package_productName --out=./dist --overwrite $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
+    "build": "electron-packager . $npm_package_productName --out=./dist --overwrite --app-version=$npm_package_version $npm_package_config_platform $npm_package_config_version $npm_package_config_ignore",
     "package": "cd dist/${npm_package_productName}-darwin-x64 && zip -ryXq9 ../${npm_package_productName}-${npm_package_version}.zip ${npm_package_productName}.app"
   },
   "files": [
