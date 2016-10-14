@@ -26,8 +26,8 @@ npm start
 
 ```
 npm install
-npm build
-npm package
+npm run-script build
+npm run-script package
 ```
 
 ## License
