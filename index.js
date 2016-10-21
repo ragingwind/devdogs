@@ -65,6 +65,11 @@ app.on('ready', () => {
 		win.focus();
 	});
 
+	win.webContents.on('new-window', function (e, url) {
+		e.preventDefault();
+		require('shell').openExternal(url);
+	});
+
 	const page = win.webContents;
 
 	page.on('dom-ready', () => {
