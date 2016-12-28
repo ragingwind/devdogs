@@ -1,26 +1,29 @@
 'use strict';
 
-const app = require('electron').app;
-const BrowserWindow = require('electron').BrowserWindow;
 const fs = require('fs');
 const path = require('path');
+const electron = require('electron');
+const Configstore = require('configstore');
 const Shortcut = require('electron-shortcut');
 const togglify = require('electron-togglify-window');
 const windowStateKeeper = require('electron-window-state');
-const Configstore = require('configstore');
+const pkg = require('./package.json');
 
-const pkg = require(path.join(__dirname, './package.json'));
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const shell = electron.shell;
 const conf = new Configstore(pkg.name, {animation: 'scale'});
 
 if (process.env.NODE_ENV !== 'production') {
-	require('crash-reporter').start({
+	const crashReporter = electron.crashReporter;
+	crashReporter.start({
 		companyName: pkg.author.name,
 		submitURL: pkg.repository
 	});
 	require('electron-debug')();
 }
 
-require('electron-menu-loader')(path.join(__dirname, './menu'), [process.platform]);
+require('electron-menu-loader')('./menu');
 
 // prevent window being GC'd
 let win = null;
@@ -30,7 +33,7 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-	let mainWindowState = windowStateKeeper({
+	const mainWindowState = windowStateKeeper({
 		defaultWidth: 800,
 		defaultHeight: 600
 	});
@@ -65,9 +68,9 @@ app.on('ready', () => {
 		win.focus();
 	});
 
-	win.webContents.on('new-window', function (e, url) {
+	win.webContents.on('new-window', (e, url) => {
+		shell.openExternal(url);
 		e.preventDefault();
-		require('shell').openExternal(url);
 	});
 
 	const page = win.webContents;

@@ -40,17 +40,17 @@
     "electron-app"
   ],
   "devDependencies": {
-    "electron-packager": "5.2.0",
-    "electron-prebuilt": "^0.36.3",
-    "xo": "^0.12.1"
+    "electron": "^1.4.8",
+    "electron-packager": "8.3.0",
+    "xo": "^0.17.1"
   },
   "dependencies": {
-    "configstore": "^1.4.0",
-    "electron-debug": "^0.5.1",
-    "electron-menu-loader": "0.0.3",
-    "electron-shortcut": "^0.4.1",
+    "configstore": "^2.1.0",
+    "electron-debug": "^1.1.0",
+    "electron-menu-loader": "1.0.0",
+    "electron-shortcut": "^0.5.0",
     "electron-togglify-window": "^0.1.0",
-    "electron-window-state": "^2.0.0"
+    "electron-window-state": "^4.0.0"
   },
   "xo": {
     "esnext": true,

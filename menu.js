@@ -1,10 +1,11 @@
 'use strict';
 
-const app = require('app');
+const {app} = require('electron');
+
 const appName = app.getName();
 
 module.exports = {
-	darwin: [{
+	darwin: {
 		label: appName,
 		submenu: [{
 			label: `About ${appName}`,
@@ -35,7 +36,8 @@ module.exports = {
 				app.quit();
 			}
 		}]
-	}, {
+	},
+	edit: {
 		label: 'Edit',
 		submenu: [{
 			label: 'Cut',
@@ -54,7 +56,8 @@ module.exports = {
 			accelerator: 'CmdOrCtrl+A',
 			role: 'selectall'
 		}]
-	}, {
+	},
+	help: {
 		label: 'Help',
 		submenu: [{
 			label: 'News',
@@ -63,5 +66,5 @@ module.exports = {
 			label: 'Tips',
 			event: 'tips'
 		}]
-	}]
+	}
 };
